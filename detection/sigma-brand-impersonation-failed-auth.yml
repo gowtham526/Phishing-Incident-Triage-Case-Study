@@ -1,0 +1,31 @@
+title: Brand Impersonation Email With Failed Authentication
+id: 55ecc01b-2aee-401a-8ea4-d773a221c397
+status: experimental
+description: Detects emails whose display name uses a bank brand but whose sender domain is not that brand's real domain and that failed the composite authentication check. Seen in Phishing Case Study samples 1 and 2.
+author: Katreddy Gowtham Kumar Reddy (gowtham526)
+date: 2026/10/21
+references:
+    - https://github.com/rf-peixoto/phishing_pot
+tags:
+    - attack.initial_access
+    - attack.t1566.002
+    - attack.t1656
+logsource:
+    category: email
+detection:
+    selection_brand:
+        sender_display_name|contains:
+            - 'bradesco'
+            - 'livelo'
+            - 'mashreq'
+    auth_fail:
+        compauth: 'fail'
+    filter_legit_domains:
+        sender_domain|endswith:
+            - 'bradesco.com.br'
+            - 'livelo.com.br'
+            - 'mashreqbank.com'
+    condition: selection_brand and auth_fail and not filter_legit_domains
+falsepositives:
+    - Legitimate third-party mailers sending on behalf of the brand (add their domains to the filter)
+level: high

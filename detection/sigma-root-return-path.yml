@@ -1,0 +1,20 @@
+title: Email Sent With Root Return-Path From Unauthenticated Source
+id: 84eca629-2569-40a8-b084-38a0eaca8e38
+status: experimental
+description: Detects emails whose Return-Path is a root account on a bare hostname, indicating mail sent directly from a misconfigured or throwaway server, combined with failed authentication. Seen in Phishing Case Study sample 1.
+author: Katreddy Gowtham Kumar Reddy (gowtham526)
+date: 2026/10/21
+tags:
+    - attack.initial_access
+    - attack.t1566
+logsource:
+    category: email
+detection:
+    selection:
+        return_path|startswith: 'root@'
+    auth_fail:
+        compauth: 'fail'
+    condition: selection and auth_fail
+falsepositives:
+    - Internal servers sending unauthenticated system mail
+level: medium

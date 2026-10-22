@@ -1,0 +1,8 @@
+Authentication-Results: spf=none (sender IP is 143.55.232.5)
+Received-SPF: None (protection.outlook.com: mg.tdi.tc does not designate
+Date: Wed, 20 Sep 2023 10:49:41 +0000
+Subject: Confirm Your Mashreq Email Now For Your Security (MOVE TO INBOX)
+From: MashreqAlerts <postmaster@digitalmashreq.mg.tdi.tc>
+Message-Id: <20230920104941.05fa86daa715a6e3@mg.tdi.tc>
+Return-Path: bounce+a57fa4.cba7bc-phishing@pot=hotmail.com@mg.tdi.tc
+X-Sender-IP: 143.55.232.5

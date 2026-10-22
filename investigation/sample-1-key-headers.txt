@@ -1,0 +1,8 @@
+Authentication-Results: spf=temperror (sender IP is 137.184.34.4)
+Received-SPF: TempError (protection.outlook.com: error in processing during
+Subject: CLIENTE PRIME - BRADESCO LIVELO: Seu cartão tem 92.990 pontos LIVELO expirando hoje!
+From: BANCO DO BRADESCO LIVELO<banco.bradesco@atendimento.com.br>
+Message-Id: <20230919183549.39DEA3F725@ubuntu-s-1vcpu-1gb-35gb-intel-sfo3-06>
+Date: Tue, 19 Sep 2023 18:35:49 +0000 (UTC)
+Return-Path: root@ubuntu-s-1vcpu-1gb-35gb-intel-sfo3-06
+X-Sender-IP: 137.184.34.4

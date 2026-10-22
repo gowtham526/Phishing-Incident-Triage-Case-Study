@@ -1,0 +1,7 @@
+Authentication-Results: spf=pass (sender IP is 209.85.208.43)
+Received-SPF: Pass (protection.outlook.com: domain of gmail.com designates
+From: Nora Alex <noraalex01@gmail.com>
+Date: Tue, 19 Sep 2023 12:11:27 +0000
+Subject: Dia Bom
+Return-Path: noraalex12345@gmail.com
+X-Sender-IP: 209.85.208.43

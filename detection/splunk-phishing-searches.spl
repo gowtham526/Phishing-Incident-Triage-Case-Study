@@ -1,0 +1,27 @@
+// Phishing detection searches (Splunk SPL)
+// NOTE: Written for a generic email-header log. Field names (from, from_display,
+// return_path, to, sender_ip, compauth) must be mapped to your data source.
+// Not yet run against live email logs.
+
+// 1. Sender domain differs from Return-Path domain (sample 1 pattern)
+index=email
+| rex field=from "@(?<from_domain>[^>\s]+)"
+| rex field=return_path "@(?<rp_domain>[^>\s]+)"
+| where lower(from_domain)!=lower(rp_domain)
+| stats count by from_domain, rp_domain, sender_ip
+| sort -count
+// Tuning: legitimate bulk mailers also mismatch. Add known mailer domains to an allowlist.
+
+// 2. Brand name in display name but not from the brand's real domain, with failed auth (samples 1 and 2)
+index=email (compauth=fail OR dmarc=fail OR dkim=fail)
+| rex field=from "@(?<from_domain>[^>\s]+)"
+| where match(lower(from_display), "bradesco|livelo|mashreq")
+| where NOT match(lower(from_domain), "(bradesco\.com\.br|livelo\.com\.br|mashreqbank\.com)$")
+| table _time, from_display, from_domain, return_path, sender_ip, subject
+
+// 3. Bulk mail with hidden recipients where From and Return-Path are different accounts (sample 3 pattern)
+// Domain comparison would miss this: both are gmail.com. Compare the full address.
+index=email to="undisclosed-recipients*"
+| rex field=from "<?(?<from_addr>[^<>\s]+@[^<>\s]+)>?"
+| where lower(from_addr)!=lower(return_path)
+| table _time, from_addr, return_path, subject, sender_ip
